@@ -16,3 +16,7 @@ new Vue({
   utils,
   render: h => h(App)
 })
+
+
+import './directives/drag';
+import './directives/drop';

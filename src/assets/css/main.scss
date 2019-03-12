@@ -56,3 +56,8 @@ $font-family-base: $font-family-sans-serif;
 // Set global options
 $enable-shadows: false;
 $enable-gradients: true;
+
+// Drag and drop
+.hide-in-drag {
+  transform:translateX(-9999px);
+}
