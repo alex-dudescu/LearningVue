@@ -1,6 +1,5 @@
 <template>
-<div style="hover:background-color: #aaaaaa; height: 100px" @drop="onDrop" @dragover="allowDrop"> 
-
+<div style="hover:background-color: #aaaaaa; padding-bottom: 1.5em" @drop="onDrop" @dragover="allowDrop" :id="itemID"> 
 </div>
 </template>
 
@@ -14,40 +13,43 @@ export default {
     props: {
         category: {
             type: String,
-            default: 'no-category'
+            default: 'default'
+        }
+    },
+    data: function() {
+        return {
+            itemID : undefined
         }
     },
     computed: {
-        ...mapGetters('dragAndDrop', [
-            'get'
+        ...mapGetters('dnd', [
+            'getContainersDraggableList'
         ])
     },
     methods: {
-        ...mapActions('dragAndDrop', [
-            'addToCategory',
+        ...mapActions('dnd', [
+            'addContainer',
             'moveDraggable'
         ]),
 
         initContainer: function() {
-            this.addToCategory({
-                categoryName: this.category,
-                itemType: 'container'
-            }).then((uniqueId) => {
-                this.itemId = uniqueId;
-                console.log(`%cCreated container with id ${this.itemId} in category ${this.category}`, "background-color: #3399ff; color: white; padding-left: 3px; padding-right: 3px;");
+            this.addContainer({
+                categoryName: this.category
+            }).then((uniqueID) => {
+                this.itemID = uniqueID;
+                console.log(`%cCreated container with id ${this.itemID} in category ${this.category}`, "background-color: #3399ff; color: white; padding-left: 3px; padding-right: 3px;");
             })
         },
 
         onDrop: async function(dropEvent) {
-            console.log('Sth dropped');
-            var draggableId = dropEvent.dataTransfer.getData('elementId');
-            console.log(draggableId);
+            var draggableID = dropEvent.dataTransfer.getData('elementId');
 
             this.moveDraggable({
-                categoryName: this.category,
-                containerId: this.itemId,
-                draggableId: draggableId
+                draggableID: draggableID,
+                containerID: this.itemID
             })
+
+            document.getElementById(this.itemID).appendChild(document.getElementById(draggableID));
         },
 
         allowDrop: async function(dropEvent) {
