@@ -12,20 +12,18 @@ const getters = {
     isElementDragged: (state) => {
         return state.isElementInDrag;
     }
+
+    
 }
 
 const actions = {
-    // Registers a draggable or a container to a category
+    // Adds an item to a category
     addToCategory: async ({commit, dispatch, state}, obj) => {
         var category = state.categories.find(category => obj.categoryName === category.categoryName);
 
         // Create category if inexistent
         if(category === undefined) {
             commit('createCategory', obj.categoryName);
-
-            await dispatch('requireUniqueID', {
-                categoryName: 'default',
-            })
         }
 
         // Assign id
@@ -64,8 +62,8 @@ const actions = {
 }
 
 const mutations = {
-    // Create a category and add a default container to register all the draggables to
-    createCategory: ({state, commit}, categoryName) => {
+    // Category
+    createCategory: (state, categoryName) => {
         state.categories.push({
             categoryId: ++state.lastCatgoryId,
             categoryName: categoryName,
@@ -121,7 +119,7 @@ const mutations = {
 
         console.log(container);
         container.draggables.push({'itemId': obj.draggableId});
-    }
+    } 
 }
 
 export default {

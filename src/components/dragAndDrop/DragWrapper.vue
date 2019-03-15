@@ -1,5 +1,5 @@
 <template>
-    <div :id="itemID" draggable="true" @dragstart="onDragStart" @dragend="onDragEnd">
+    <div :id="itemId" draggable="true" @dragstart="onDragStart" @dragend="onDragEnd">
         <div :class="{'hide-in-drag' : isDragged}">
             <slot></slot>
         </div>
@@ -9,29 +9,25 @@
 <script>
 import 'core-js/shim'
 import 'regenerator-runtime/runtime'
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'DragWrapper',
     props: {
         category: {
             type: String,
-            default: 'default'
+            default: 'no-category'
         }
     },
     data: function() {
         return {
-            itemID: '',
+            itemId: '',
             isDragged: false
         }
     },
     computed: {
         ...mapActions('dragAndDrop', [
             'isElementDragged'
-        ]),
-
-        ...mapGetters('dnd', [
-            'getGlobalDragState'
         ])
     },
     methods: {
@@ -41,40 +37,33 @@ export default {
             'toggleDrag'
         ]),
 
-        ...mapActions('dnd', [
-            'addDraggable',
-            'moveDraggable',
-            'addCategory',
-            'toggleGlobalDragState'
-        ]),
-
-        // Create cateory if necessary; Create and add draggable
-        initDraggable: async function() {
-            if(this.category !== 'default') {
-                await this.addCategory({categoryName: this.category});
-            }
-
-            this.addDraggable({
-                categoryName: this.category
-            }).then((uniqueID) => {
-                this.itemID = uniqueID;
-                console.log(`%cCreated draggable with id ${this.itemID} in category ${this.category}`, "background-color: #3399ff; color: white; padding-left: 3px; padding-right: 3px;");
+        initDraggable: function() {
+            this.addToCategory({
+                categoryName: this.category, 
+                itemType: 'draggable'
+            }).then((uniqueId) => {
+                this.itemId = uniqueId;
+                console.log(`%cCreated draggable with id ${this.itemId} in category ${this.category}`, "background-color: #3399ff; color: white; padding-left: 3px; padding-right: 3px;");
             })
+
         },
 
         onDragStart: async function(dragEvent) {
-
-            if(!this.getGlobalDragState) {
+            if(!this.isDragged ) {
                 this.isDragged = true;
-                await this.toggleGlobalDragState();
-                dragEvent.dataTransfer.setData('elementId', this.itemID);
+                
+                await this.toggleDrag()//.then(() => console.log('Done toggling!'));
+                console.log('Dragged element start');
+                dragEvent.dataTransfer.setData('elementId', this.itemId);
             }
         },
 
         onDragEnd: async function(dragEvent) {
-            if(this.getGlobalDragState) {
+            if(this.isDragged) {
                 this.isDragged = false;
-                await this.toggleGlobalDragState();
+                await this.toggleDrag()//.then(() => console.log('Done toggling!'));
+
+                console.log('Dragged element stop');
             }
         }
     },
