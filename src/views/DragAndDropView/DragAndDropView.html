@@ -1,0 +1,73 @@
+<div>
+  <div class="row">
+    <div class="col-md-4">
+      <div
+        class="card mb-2"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave"
+        :class="{'border-primary': mouseOverBoard}"
+      >
+        <div class="card-header">Default containter</div>
+        <div class="card-body">
+          <drag-wrapper>
+            <kanban-card></kanban-card>
+          </drag-wrapper>
+          <drag-wrapper>
+            <kanban-card></kanban-card>
+          </drag-wrapper>
+          <drag-wrapper>
+            <kanban-card></kanban-card>
+          </drag-wrapper>
+          <drag-wrapper>
+            <kanban-card></kanban-card>
+          </drag-wrapper>
+        </div>
+      </div>
+      <div class="card border-primary">
+        <div class="card-header">Default Container List</div>
+        <div class="card-body">
+          <div v-if="getContainerAvailabilty('default')">
+            {{ getContainersDraggableList("default") }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-primary mb-2">
+        <div class="card-header">Second Container</div>
+        <div class="card-body">
+          <container-wrapper>
+            <div class="phantom-spacer">
+              a
+            </div>
+          </container-wrapper>
+        </div>
+      </div>
+      <div class="card border-primary">
+        <div class="card-header">Second container List</div>
+        <div class="card-body">
+          <div v-if="getContainerAvailabilty('container-1-2')">
+            {{ getContainersDraggableList("container-1-2") }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-primary mb-2">
+        <div class="card-header">Third container List</div>
+        <div class="card-body">
+          <container-wrapper> </container-wrapper>
+        </div>
+      </div>
+      <div class="card border-primary">
+        <div class="card-header">Third container List</div>
+        <div class="card-body">
+          <div v-if="getContainerAvailabilty('container-1-3')">
+            {{ getContainersDraggableList("container-1-3") }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <kanban-card-modal></kanban-card-modal>
+</div>

@@ -1,0 +1,49 @@
+<div>
+  <div class="row mb-5">
+    <div class="col-md-10">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Dollar amount (with dot and two decimal places)"
+          v-model="inputText"
+          @keyup.enter="createSearch"
+        />
+        <div class="input-group-append btn-group">
+          <bt-dropdown-button
+            type="button"
+            :values="['Trivia', 'Math', 'Date']"
+            @valueChanged="onOptionChanged"
+          ></bt-dropdown-button>
+          <button type="button" class="btn btn-secondary" @click="createSearch">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-secondary" @click="getRandomFact">
+        Get Random
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2 offset-md-5">
+      <i
+        class="fa fa-spinner fa-pulse fa-3x fa-fw align-middle"
+        v-if="isLoading"
+      ></i>
+    </div>
+    <div class="col-md-12" v-if="!isLoading">
+      <bt-card
+        :cardTitle="'#' + res.number"
+        v-for="(res, index) in result"
+        :key="index"
+        class="mb-2"
+      >
+        {{ res.text }}
+      </bt-card>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,3 @@
-<template>
-  <div class="card text-white bg-secondary">
-    <div class="card-body">BlahBlah</div>
-  </div>
-</template>
-
-<script src="./DraggableCard.vue.js"></script>
-<style lang="scss" scoped src="./DraggableCard.vue.scss"></style>
+<template src="./DraggableCard/DraggableCard.html"></template>
+<style lang="scss" scoped src="./DraggableCard/DraggableCard.scss"></style>
+<script src="./DraggableCard/DraggableCard.js"></script>

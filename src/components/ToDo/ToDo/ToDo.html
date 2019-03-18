@@ -1,0 +1,27 @@
+<transition name="fade">
+  <div class="card mb-2 mt-2">
+    <!-- <transition name="toggle" v-if="!todo.done"> -->
+    <div class="card-body" :class="{'text-muted done-todo' : todo.done}">
+      <h5 class="d-inline" :class="{}">
+        {{ todo.text }}
+      </h5>
+      <!-- x Button -->
+      <button
+        class="d-inline btn btn-outline-danger float-right"
+        @click="deleteTodo(todo)"
+      >
+        <i class="fa fa-times"></i>
+      </button>
+
+      <!-- v Button  -->
+      <button
+        class="d-inline btn float-right mr-2"
+        :class="'btn-' + ((!todo.done) ? 'outline-' : '') + 'success' "
+        @click="toggleTodo(todo)"
+      >
+        <i class="fa fa-check"></i>
+      </button>
+    </div>
+    <!-- </transition> -->
+  </div>
+</transition>

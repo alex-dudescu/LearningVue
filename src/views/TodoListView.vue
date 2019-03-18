@@ -1,20 +1,3 @@
-<template>
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <to-do-list></to-do-list>
-        </div>
-    </div>
-</template>
-
-<script>
-import ToDoList from 'Components/ToDo/ToDoList'
-
-export default {
-    name: 'ToDoListView',
-    components: {
-        ToDoList
-    }
-}
-</script>
-
-
+<template src="./TodoListView/TodoListView.html"></template>
+<style lang="scss" scoped src="./TodoListView/TodoListView.scss"></style>
+<script src="./TodoListView/TodoListView.js"></script>

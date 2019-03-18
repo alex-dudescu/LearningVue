@@ -1,0 +1,25 @@
+.done-todo {
+  background-color: #fafafa;
+
+  h5 {
+    text-decoration: line-through;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+// .toggle-enter, .toggle-leave-active  {
+//     transition: background-color .5s ease;
+//     background-color: #ffffff !important;
+// }
+
+// .toggle-enter, .toggle-leave-to
+// {
+//     background-color: #000000 !important;
+// }

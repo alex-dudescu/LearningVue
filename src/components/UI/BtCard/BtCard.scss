@@ -1,0 +1,9 @@
+.subtitle-container > li {
+  display: inline;
+  margin-right: 0.3em;
+  padding-right: 0.3em;
+  border-right: 1px solid;
+}
+.subtitle-container > li:last-child {
+  border-right: none;
+}
