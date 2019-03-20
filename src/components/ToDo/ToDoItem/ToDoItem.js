@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "ToDo",
+  name: "ToDoItem",
   props: {
     todo: undefined
   },

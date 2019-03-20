@@ -1,4 +1,4 @@
-import ToDoList from 'Components/ToDo/ToDoList'
+import { ToDoList } from 'Components/ToDo'
 
 export default {
     name: 'ToDoListView',

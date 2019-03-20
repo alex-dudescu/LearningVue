@@ -1,10 +1,10 @@
 import { mapActions, mapGetters } from "vuex";
-import Todo from "../Todo";
+import ToDoItem from "../ToDoItem";
 
 export default {
   name: "ToDoList",
   components: {
-    Todo
+    ToDoItem
   },
   data: function() {
     return {
