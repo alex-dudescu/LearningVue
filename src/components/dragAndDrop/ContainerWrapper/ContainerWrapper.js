@@ -26,6 +26,8 @@ export default {
         categoryName: this.category
       }).then(uniqueID => {
         this.itemID = uniqueID;
+        this.$emit("update:assignedID", this.itemID);
+
         console.log(
           `%cCreated container with id ${this.itemID} in category ${
             this.category
@@ -52,7 +54,12 @@ export default {
       dropEvent.preventDefault();
     }
   },
-  created: function() {
-    this.initContainer();
+  created: async function() {
+    await this.initContainer();
+  },
+  mounted: function() {
+  },
+  beforeUpdate: function() {
+    this.$emit("update:assignedID", this.itemID);
   }
 };
