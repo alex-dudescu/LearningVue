@@ -1,4 +1,3 @@
-import vue from 'vue';
 import axios from 'axios'
 
 const baseDomain = 'http://numbersapi.com/';

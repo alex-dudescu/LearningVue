@@ -16,13 +16,6 @@ var fs = require("fs");
 var defaultDir = process.env['INIT_CWD'];
 
 createComponent(process.argv);
-// if (!fs.existsSync(dir)){
-//     fs.mkdirSync(dir);
-// }
-
-// process.argv.forEach(function(val, index, array) {
-//   console.log(index + ": " + val);
-// });
 
 function createComponent(argv) {
   // Check if path is specified
