@@ -1,11 +1,14 @@
 import Vue from 'vue';
-import { mapActions, Store } from 'vuex';
 import store from 'Store/index'
 
-// var context = document.getElementById('app').getContext("2d")
+Vue.directive('drag', {
+  inserted: function(el, binding) {
 
-function draw() {
-}
+    initDraggable(el, binding.value);
+    el.addEventListener('dragstart', onDragStart);
+    el.addEventListener('dragend', onDragEnd);
+  } 
+})
 
 function getElementById(elementsArray, id)
 {
@@ -13,43 +16,51 @@ function getElementById(elementsArray, id)
 }
 
 async function onDragStart(dragEvent)  {
-  if(!( await store.state.isElementInDrag)) {
-    store.dispatch('dragAndDrop/toggleDrag')
+ 
+  var el = getElementById(dragEvent.path, 'draggable')
 
-    var el = getElementById(dragEvent.path, 'draggable')
-    
-    console.log(`${JSON.stringify(el.id)} was dragged!`);
-
-    el.classList.add('hide-in-drag');
+  if(!store.getters['dnd/getGlobalDragState']) {
+    el.isDragged = true;
+    await store.dispatch('dnd/toggleGlobalDragState');
+    dragEvent.dataTransfer.setData("elementId", el.id);
+    el.children[0].classList.add('hide-in-drag');
+    console.log(dragEvent);
   }
 }
 
 async function onDragEnd(dragEvent) {
-  if(await store.state.isElementInDrag)
+  
+  var el = getElementById(dragEvent.path, 'draggable')
+  
+  if(store.getters['dnd/getGlobalDragState'])
   {
-    store.dispatch('dragAndDrop/toggleDrag')
-    var el = getElementById(dragEvent.path,'draggable')
-    console.log(`${JSON.stringify(el.id)} stopped dragging!`);
-    
-    el.classList.remove('hide-in-drag');
+    el.isDragged = false;
+    await store.dispatch('dnd/toggleGlobalDragState');
+    el.children[0].classList.remove('hide-in-drag');
   }
 }
 
-function initDraggable(el, categoryName) {
+async function initDraggable(el, categoryName) {
   
-  store.dispatch('dragAndDrop/addToCategory', { 
-    categoryName: categoryName, 
-    itemType: 'draggable'
-  }).then((res) => el.id = res)
+  el.isDragged = false;
+  el.categoryName = 'default';
+
+  if(el.category !== 'default')
+  await store.dispatch('dnd/addCategory', {
+    categoryName : el.categoryName
+  })
+
+  await store.dispatch('dnd/addDraggable', {
+    categoryName: el.categoryName
+  }).then(uniqueID => {
+    el.id = uniqueID;
+    console.log(
+      `%cCreated draggable with id ${el.id} in category ${
+        el.categoryName
+      }`,
+      "background-color: #3399ff; color: white; padding-left: 3px; padding-right: 3px;"
+    );
+  })
 
   el.setAttribute('draggable', 'true');
 }
-
-Vue.directive('drag', {
-    inserted: function(el, binding) {
-
-      initDraggable(el, binding.value);
-      el.addEventListener('dragenter', onDragStart);
-      el.addEventListener('dragend', onDragEnd);
-    } 
-})
