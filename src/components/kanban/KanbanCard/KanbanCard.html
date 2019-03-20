@@ -1,28 +1,37 @@
+<div>
 <div
   class="card text-white bg-primary mb-3"
+  :class="colorClass"
   @mouseenter="onMouseEnter"
   @mouseleave="onMouseLeave"
-  @blur="onBlured"
 >
-  <div class="card-body">
+  <div class="card-body" :id="id">
     <div v-if="!isInEdit" class="d-inline">
       {{ text }}
     </div>
-    <div v-if="isInEdit">
-      <input
-        class="form-control"
+    <div v-show="isInEdit">
+      <b-form-input
+        ref="cardInput"
         type="text"
-        v-model="text"
-        @keydown.enter="onBlured"
+        v-model="editedText"
+        @blur="onBlured"
+        @keydown.enter="saveModifications"
       />
     </div>
-    <button
-      type="button"
-      v-if="isMouseOver && !isInEdit"
-      class="btn btn-secondary btn-sm d-inline float-right"
+    <b-button
+      v-show="isMouseOver && !isInEdit"
+      class="float-right"
       @click="onFocused"
     >
-      Edit
-    </button>
+      <i class="fas fa-pencil-alt"></i>
+    </b-button>
   </div>
+  
+</div>
+<b-popover :show="isInEdit" :target="id.toString()" triggers="">
+  <template slot="title">Edit</template>
+    <div @focus="isInEdit = true">
+    <bt-color-picker @colorChanged="applyColor"></bt-color-picker>
+  </div>
+</b-popover>
 </div>
