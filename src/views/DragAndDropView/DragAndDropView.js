@@ -1,25 +1,26 @@
-import DraggableCard from 'Components/dragAndDrop/DraggableCard'
-import DragWrapper from 'Components/dragAndDrop/DragWrapper'
-import ContainerWrapper from 'Components/dragAndDrop/ContainerWrapper'
-import KanbanCard from 'Components/kanban/KanbanCard'
-import KanbanCardModal from 'Components/kanban/KanbanCardModal'
+import { DraggableCard, DragWrapper, ContainerWrapper } from 'Components/dragAndDrop/'
+import { KanbanCard, KanbanCardModal, KanbanColumn }    from 'Components/kanban/'
+import BFormInput     from '~/bootstrap-vue/es/components/form-input/form-input'
 import { mapGetters } from 'vuex';
 
 export default {
   name: "DragAndDropView",
   data:  function() {
     return {
-      mouseOverBoard: false
+      mouseOverBoard: false,
+      showInputField: false,
+      kanbanColumns: [],
+      columnText: ''
     }
-  }
-  ,
+  },
   components: {
       DraggableCard,
       DragWrapper,
       ContainerWrapper,
       KanbanCard,
-      KanbanCardModal
-
+      KanbanCardModal,
+      KanbanColumn,
+      BFormInput
   },
   computed: {
     ...mapGetters('dnd', [
@@ -33,6 +34,19 @@ export default {
     },
     onMouseLeave: function() {
       this.mouseOverBoard = false;
+    },
+    onBlur: function() {
+      this.showInputField = false;
+      this.columnText = '';
+    },
+    showColumnInput: function() {
+      this.showInputField = true;
+      this.$nextTick(() => this.$refs['columnInputField'].focus())
+    },
+    addColumn: function() {
+      this.kanbanColumns.push(this.columnText);
+      this.showInputField = false;
+      this.columnText = '';
     }
   }
 };

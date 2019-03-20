@@ -1,5 +1,5 @@
 <div>
-  <div class="row">
+  <div class="row flex-row flex-nowrap">
     <div class="col-md-4">
       <div
         class="card mb-2"
@@ -21,6 +21,8 @@
           <drag-wrapper>
             <kanban-card></kanban-card>
           </drag-wrapper>
+
+          <kanban-card v-drag></kanban-card>
         </div>
       </div>
       <div class="card border-primary">
@@ -32,42 +34,31 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card border-primary mb-2">
-        <div class="card-header">Second Container</div>
-        <div class="card-body">
-          <container-wrapper>
-            <div class="phantom-spacer">
-              a
-            </div>
-          </container-wrapper>
-        </div>
-      </div>
-      <div class="card border-primary">
-        <div class="card-header">Second container List</div>
-        <div class="card-body">
-          <div v-if="getContainerAvailabilty('container-1-2')">
-            {{ getContainersDraggableList("container-1-2") }}
-          </div>
-        </div>
-      </div>
+    <div class="col-md-4" v-for="col in kanbanColumns">
+      <kanban-column :name="col"></kanban-column>
     </div>
+
     <div class="col-md-4">
-      <div class="card border-primary mb-2">
-        <div class="card-header">Third container List</div>
-        <div class="card-body">
-          <container-wrapper> </container-wrapper>
-        </div>
-      </div>
-      <div class="card border-primary">
-        <div class="card-header">Third container List</div>
-        <div class="card-body">
-          <div v-if="getContainerAvailabilty('container-1-3')">
-            {{ getContainersDraggableList("container-1-3") }}
+      <div class="card ">
+        <div class="card-body bg-light">
+          <div
+            v-if="!showInputField"
+            class="btn btn-block btn-light"
+            @click="showColumnInput"
+          >
+            <div class="h3">+</div>
           </div>
+          <b-form-input
+            v-show="showInputField"
+            ref="columnInputField"
+            type="text"
+            class="form-control"
+            v-model="columnText"
+            @keyup.enter="addColumn"
+            @blur="onBlur"
+          />
         </div>
       </div>
     </div>
   </div>
-  <kanban-card-modal></kanban-card-modal>
 </div>
