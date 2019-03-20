@@ -3,10 +3,12 @@ import App from './App.vue'
 
 import router from 'Router/index'
 import store from 'Store/index'
+import bus from './mixins/bus.mixin'
 import { utils }  from 'Utils/index'
 import { repository } from 'API/Repository'
-
+import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap'
+
 
 new Vue({
   el: '#app',
@@ -14,6 +16,8 @@ new Vue({
   repository,
   store,
   utils,
+  bus,
+  BootstrapVue,
   render: h => h(App)
 })
 

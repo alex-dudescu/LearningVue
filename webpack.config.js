@@ -58,7 +58,11 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, 'src'),
+          require.resolve('bootstrap-vue')
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
