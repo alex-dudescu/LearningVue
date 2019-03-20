@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4" v-for="color in colors">
+      <div class="card mr-2 mb-2">
+        <div class="card-body" :class="color.className" @click="onColorChosen(color.className)">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
