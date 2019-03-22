@@ -1,38 +1,46 @@
-import BButton          from '~/bootstrap-vue/es/components/button/button'
-import BPopover         from '~/bootstrap-vue/es/components/popover/popover'
-import BFormInput       from '~/bootstrap-vue/es/components/form-input/form-input'
-import KanbanCardModal  from '../KanbanCardModal'
-import BtColorPicker    from 'UI/BtColorPicker'
+import BButton from "~/bootstrap-vue/es/components/button/button";
+import BFormInput from "~/bootstrap-vue/es/components/form-input/form-input";
+import { mapActions } from "vuex";
 
 export default {
   name: "KanbanCard",
+  props: {
+    draggableID: {
+      type: String,
+      default: ""
+    },
+    containerID: {
+      type: String,
+      default: undefined,
+    }
+  },
   data: function() {
     return {
       isInEdit: false,
       isMouseOver: false,
       text: "Kanban card",
       editedText: "",
-      id: null,
-      colorClass: ''
+      id: "",
+      colorClass: "color-turquoise"
     };
   },
-  components:{
-    KanbanCardModal,
+  components: {
+    "kanban-card-modal": () => import("../KanbanCardModal"),
     BFormInput,
-    BPopover,
-    BButton,
-    BtColorPicker,
+    BButton
   },
   methods: {
+    ...mapActions("kanban", ["addCard", "updateCard"]),
+
     onFocused() {
       this.startEditing();
       this.isInEdit = true;
-      this.$nextTick(() => this.$refs['cardInput'].focus())
-      this.$root.$emit('bv::show::popover', this.id)
+      this.$nextTick(() => this.$refs["cardInput"].focus());
+      this.$root.$emit("bv::show::popover", this.id);
     },
     onBlured() {
       this.isInEdit = false;
-      this.$root.$emit('bv::hide::popover',  this.id)
+      this.$root.$emit("bv::hide::popover", this.id);
     },
     onMouseEnter() {
       this.isMouseOver = true;
@@ -43,15 +51,46 @@ export default {
     saveModifications() {
       this.text = this.editedText;
       this.onBlured();
+
+      this.updateCard({
+        itemID: this.id,
+        properties: {
+          pannelID: "adfadf",
+          cardName: this.text,
+          cardColor: this.colorClass
+        }
+      });
     },
     startEditing() {
       this.editedText = this.text;
     },
     applyColor(e) {
-      this.colorClass = e; 
+      this.colorClass = e;
+    },
+    onIDAssigned(e) {
+      this.id = e.uniqueID;
+      console.log(this.id);
+
+      this.addCard({
+        itemID: this.id,
+        properties: {
+          pannelID: "adfadf",
+          cardName: this.text,
+          cardColor: this.colorClass
+        }
+      });
+    }
+  },
+  computed: {
+    cardModel: function() {
+      return {
+        categoryName: 'kanban',
+        containerID: this.containerID
+      }
     }
   },
   created: function() {
-    this.id = this._uid;
-  }
+    this.id = this.draggableID;
+  },
+  mounted: function() {}
 };

@@ -1,37 +1,31 @@
-<div>
-<div
-  class="card text-white bg-primary mb-3"
-  :class="colorClass"
-  @mouseenter="onMouseEnter"
-  @mouseleave="onMouseLeave"
->
-  <div class="card-body" :id="id">
-    <div v-if="!isInEdit" class="d-inline">
-      {{ text }}
+<div v-drag="cardModel" @assignedID="onIDAssigned($event)" :id="id">
+  <div
+    class="card text-white mb-3"
+    :class="colorClass"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+  >
+    <div class="card-body">
+      <div v-if="!isInEdit" class="d-inline">
+        {{ text }}
+      </div>
+      <div v-show="isInEdit">
+        <b-form-input
+          ref="cardInput"
+          type="text"
+          v-model="editedText"
+          @blur="onBlured"
+          @keydown.enter="saveModifications"
+        />
+      </div>
+      <b-button
+        v-show="isMouseOver && !isInEdit"
+        class="float-right"
+        @click="onFocused"
+      >
+        <i class="fas fa-pencil-alt"></i>
+      </b-button>
     </div>
-    <div v-show="isInEdit">
-      <b-form-input
-        ref="cardInput"
-        type="text"
-        v-model="editedText"
-        @blur="onBlured"
-        @keydown.enter="saveModifications"
-      />
-    </div>
-    <b-button
-      v-show="isMouseOver && !isInEdit"
-      class="float-right"
-      @click="onFocused"
-    >
-      <i class="fas fa-pencil-alt"></i>
-    </b-button>
   </div>
-  
-</div>
-<b-popover :show="isInEdit" :target="id.toString()" triggers="">
-  <template slot="title">Edit</template>
-    <div @focus="isInEdit = true">
-    <bt-color-picker @colorChanged="applyColor"></bt-color-picker>
-  </div>
-</b-popover>
+  <!-- <kanban-card-modal :cardReady="true"></kanban-card-modal> -->
 </div>

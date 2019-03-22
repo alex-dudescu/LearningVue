@@ -22,6 +22,17 @@ const state = {
             ],
             technologies: ['Axios', 'Async/Await', 'Promises'],
             link: '/random'
+        },
+        {
+            projectId: 3,
+            projectName: 'Kanban board',
+            description: 'Make use of directives and drag&drop functionalities',
+            features:[
+                'Vue directives',
+                'Drag and drop'
+            ],
+            technologies: ['Vuex', 'DragAndDrop'],
+            link: '/drag-n-drop'
         }
     ]
 }

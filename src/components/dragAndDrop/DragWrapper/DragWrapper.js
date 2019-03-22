@@ -17,15 +17,11 @@ export default {
     };
   },
   computed: {
-    ...mapActions("dragAndDrop", ["isElementDragged"]),
-
-    ...mapGetters("dnd", ["getGlobalDragState"])
+    ...mapGetters("dragAndDrop", ["getGlobalDragState"])
   },
   methods: {
     // Import methods from store
-    ...mapActions("dragAndDrop", ["addToCategory", "toggleDrag"]),
-
-    ...mapActions("dnd", [
+    ...mapActions("dragAndDrop", [
       "addDraggable",
       "moveDraggable",
       "addCategory",

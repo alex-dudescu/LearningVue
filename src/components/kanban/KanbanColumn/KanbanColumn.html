@@ -1,22 +1,20 @@
 <div>
   <div class="card border-primary mb-2">
-    <div class="card-header">{{name}}</div>
+    <div class="card-header">{{ pannelName }}</div>
     <div class="card-body">
-      <!-- <container-wrapper :assignedID.sync="itemID">
-        <div class="phantom-spacer">
+      <div v-drop="{'categoryName' : 'kanban'}" @assignedID="onIDAssigned" >
+        <div v-for="card in kanbanCards">
+          <kanban-card :containerID="itemID"></kanban-card>
         </div>
-      </container-wrapper> -->
-      <div v-drop @assignedID="onIDAssigned">
-        <div class="phantom-spacer">
-        </div>
+        <kanban-add-button @valueEntered="addCard"></kanban-add-button>
       </div>
     </div>
   </div>
   <div class="card border-primary">
-    <div class="card-header">{{name}} List</div>
+    <div class="card-header">{{ pannelName }} List</div>
     <div class="card-body">
       <div v-if="getContainerAvailabilty(itemID)">
-        Label: {{ itemID }} <br/>
+        Label: {{ itemID }} <br />
         Content: {{ getContainersDraggableList(itemID) }}
       </div>
     </div>

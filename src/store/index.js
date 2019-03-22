@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import todo from './modules/todo'
+import todo         from './modules/todo'
 import miniProjects from './modules/miniProjects' 
-import dragAndDrop from './modules/dragAndDrop'
-import dragAndDrop2 from './modules/dragAndDrop.2';
+import dragAndDrop  from './modules/dragAndDrop';
+import kanban       from './modules/kanban'
 
 Vue.use(Vuex);
 
@@ -13,6 +13,6 @@ export default new Vuex.Store({
         todo,
         miniProjects,
         dragAndDrop,
-        'dnd' : dragAndDrop2
+        kanban
     }
 })

@@ -16,10 +16,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("dnd", ["getContainersDraggableList"])
+    ...mapGetters("dragAndDrop", ["getContainersDraggableList"])
   },
   methods: {
-    ...mapActions("dnd", ["addContainer", "moveDraggable"]),
+    ...mapActions("dragAndDrop", ["addContainer", "moveDraggable"]),
 
     initContainer: function() {
       this.addContainer({

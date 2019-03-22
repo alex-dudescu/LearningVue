@@ -1,6 +1,4 @@
-import { DraggableCard, DragWrapper, ContainerWrapper } from 'Components/dragAndDrop/'
-import { KanbanCard, KanbanCardModal, KanbanColumn }    from 'Components/kanban/'
-import BFormInput     from '~/bootstrap-vue/es/components/form-input/form-input'
+import { KanbanCard, KanbanColumn} from 'Components/kanban/'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -8,22 +6,16 @@ export default {
   data:  function() {
     return {
       mouseOverBoard: false,
-      showInputField: false,
       kanbanColumns: [],
-      columnText: ''
     }
   },
   components: {
-      DraggableCard,
-      DragWrapper,
-      ContainerWrapper,
       KanbanCard,
-      KanbanCardModal,
       KanbanColumn,
-      BFormInput
+      'kanban-add-button': () => import('Components/kanban/KanbanAddButton.vue')
   },
   computed: {
-    ...mapGetters('dnd', [
+    ...mapGetters('dragAndDrop', [
       'getContainersDraggableList',
       'getContainerAvailabilty'
     ]),
@@ -35,18 +27,8 @@ export default {
     onMouseLeave: function() {
       this.mouseOverBoard = false;
     },
-    onBlur: function() {
-      this.showInputField = false;
-      this.columnText = '';
-    },
-    showColumnInput: function() {
-      this.showInputField = true;
-      this.$nextTick(() => this.$refs['columnInputField'].focus())
-    },
-    addColumn: function() {
-      this.kanbanColumns.push(this.columnText);
-      this.showInputField = false;
-      this.columnText = '';
+    addColumn: function(e) {
+      this.kanbanColumns.push(e);
     }
   }
 };
