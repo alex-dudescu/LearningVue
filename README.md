@@ -1,6 +1,7 @@
-# to-do-list
+# Learning Vue
+[![Build Status](https://travis-ci.com/alex-dudescu/LearningVue.svg?branch=master)](https://travis-ci.com/alex-dudescu/LearningVue)
 
-> A Vue.js project
+> A Vue.js series of mini-projects
 
 ## Build Setup
 
@@ -10,9 +11,4 @@ npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).

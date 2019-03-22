@@ -61,16 +61,16 @@ module.exports = {
   },
   resolve: {
     alias: {
-      Vue$: "vue/dist/vue.esm.js",
-      Assets: path.resolve(__dirname, "src/assets/"),
-      API: path.resolve(__dirname, "src/api/"),
-      Components: path.resolve(__dirname, "src/components/"),
-      Router: path.resolve(__dirname, "src/router/"),
-      Store: path.resolve(__dirname, "src/store"),
-      Views: path.resolve(__dirname, "src/views/"),
-      Utils: path.resolve(__dirname, "src/utils/"),
-      UI: path.resolve(__dirname, "src/components/UI"),
-      "~": path.resolve(__dirname, "node_modules/")
+      'vue$':       "vue/dist/vue.esm.js",
+      '~':          path.resolve(__dirname, "node_modules/"),
+      'API':        path.resolve(__dirname, "src/api/"),
+      'Assets':     path.resolve(__dirname, "src/assets/"),
+      'Components': path.resolve(__dirname, "src/components/"),
+      'Router':     path.resolve(__dirname, "src/router/"),
+      'Store':      path.resolve(__dirname, "src/store"),
+      'UI':         path.resolve(__dirname, "src/components/UI"),
+      'Utils':      path.resolve(__dirname, "src/utils/"),
+      'Views':      path.resolve(__dirname, "src/views/"),
     },
     extensions: ["*", ".js", ".vue", ".json"]
   },
