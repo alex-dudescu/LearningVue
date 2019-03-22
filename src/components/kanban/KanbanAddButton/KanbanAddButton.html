@@ -1,0 +1,20 @@
+<div class="card ">
+  <div class="card-body bg-light">
+    <div
+      v-if="!showInputField"
+      class="btn btn-block btn-light"
+      @click="showInput"
+    >
+      <div class="h3">+</div>
+    </div>
+    <b-form-input
+      v-show="showInputField"
+      ref="inputField"
+      type="text"
+      class="form-control"
+      v-model="text"
+      @keyup.enter="valueEntered"
+      @blur="onBlur"
+    ></b-form-input>
+  </div>
+</div>
