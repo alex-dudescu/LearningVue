@@ -87,6 +87,7 @@ module.exports = {
   devtool: "#eval-source-map"
 };
 
+// Production environment setup
 if (process.env.NODE_ENV === "production") {
   module.exports.devtool = "#source-map";
   module.exports.plugins = (module.exports.plugins || []).concat([
@@ -112,6 +113,7 @@ if (process.env.NODE_ENV === "production") {
   ]);
 }
 
+// Test environment setup
 if (process.env.NODE_ENV === "test") {
   module.exports.externals = [nodeExternals()];
   module.exports.devtool = "inline-cheap-module-source-map";
@@ -119,4 +121,37 @@ if (process.env.NODE_ENV === "test") {
     devtoolModuleFilenameTemplate: "[absolute-resource-path]",
     devtoolFallbackModuleFilenameTemplate: "[absolute-resource-path]?[hash]"
   });
+}
+
+// Github pages SPA environment setup
+if(process.env.NODE_ENV === "ghpages") {
+  module.exports.devtool = "#source-map";
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    }),
+    new cleanWebpackPlugin(),
+    new htmlWebpackPlugin({
+      title: 'Learning vue',
+      showErrors: false,
+      template: './gh-pages/gh-pages.index.html'
+    }),
+    new htmlWebpackPlugin({
+      filename: '404.html',
+      title: 'Learning vue',
+      showErrors: false,
+      template: './gh-pages/gh-pages.404.html'
+    })
+  ]);
 }
