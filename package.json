@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "test": "mocha-webpack NODE_ENV=test --webpack-config webpack.config.js --require test/setup.js test/**/*.spec.js",
+    "test": "mocha-webpack NODE_ENV=test --webpack-config webpack.config.js --require test/setup.js test/**/*.spec.js -R mocha-lcov-reporter && codecov",
     "deploy": "cross-env NODE_ENV=ghpages webpack --progress --hide-modules && gh-pages -d dist",
     "gc": "node ./src/utils/createComponent.js"
   },
@@ -63,6 +63,7 @@
   },
   "config": {
     "blanket": {
+      "pattern" : "./test",
       "data-cover-never": [ "node_modules", "tests" ]
     }
   }
