@@ -131,7 +131,8 @@ const actions = {
         var newDraggable = {
             itemID: '',
             categoryID: -1,
-            currentContainerID: ''
+            currentContainerID: '',
+            model : obj.model
         }
 
         // Assign category id
@@ -206,6 +207,10 @@ const actions = {
         draggable.currentContainerID = obj.containerID;
     },
 
+    updateDraggableModel: ({commit}, obj) => {
+        commit('updateDraggableModel', obj);
+    },
+
     // ##### Others #####
     requireCategoryID: ({state}) => {
         return ++state.lastCategoryID
@@ -272,6 +277,9 @@ const mutations = {
         else {
             console.warn(`Trying to remove inexistent draggable. Category details: ${JSON.stringify(obj)}`)
         }
+    },
+
+    updateDraggableModel: (state, obj) => {
     },
 
     // ##### Containers #####
