@@ -1,12 +1,14 @@
 var path = require("path");
 var webpack = require("webpack");
 var nodeExternals = require("webpack-node-externals");
+var htmlWebpackPlugin = require("html-webpack-plugin");
+var cleanWebpackPlugin = require("clean-webpack-plugin");
 
 module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "/dist/",
+    publicPath: "./",
     filename: "build.js"
   },
   module: {
@@ -61,7 +63,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$':       "vue/dist/vue.esm.js",
+      'vue$':       path.resolve(__dirname, "./node_modules/vue/dist/vue.esm.js"),
       '~':          path.resolve(__dirname, "./node_modules/"),
       'API':        path.resolve(__dirname, "./src/api/"),
       'Assets':     path.resolve(__dirname, "./src/assets/"),
@@ -82,7 +84,6 @@ module.exports = {
   performance: {
     hints: false
   },
-  externals: [nodeExternals()],
   devtool: "#eval-source-map"
 };
 
@@ -102,6 +103,11 @@ if (process.env.NODE_ENV === "production") {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new cleanWebpackPlugin(),
+    new htmlWebpackPlugin({
+      title: 'Learning vue',
+      showErrors: true
     })
   ]);
 }
