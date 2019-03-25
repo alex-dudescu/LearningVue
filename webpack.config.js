@@ -72,7 +72,7 @@ module.exports = {
       'Store':      path.resolve(__dirname, "./src/store"),
       'UI':         path.resolve(__dirname, "./src/components/UI"),
       'Utils':      path.resolve(__dirname, "./src/utils/"),
-      'Views':      path.resolve(__dirname, "./src/views/"),
+      'Views':      path.resolve(__dirname, "./src/views/")
     },
     extensions: ["*", ".js", ".vue", ".json"]
   },
