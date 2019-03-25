@@ -16,7 +16,6 @@ function getElementById(elementsArray, id) {
 
 async function initContainer(el, binding, vnode) {
   if (el.id === "") {
-    console.log(binding.value);
     var categoryName = binding.value.categoryName.toString();
 
     // check if category exists and create it 

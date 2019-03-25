@@ -69,7 +69,6 @@ export default {
     },
     onIDAssigned(e) {
       this.id = e.uniqueID;
-      console.log(this.id);
 
       this.addCard({
         itemID: this.id,
